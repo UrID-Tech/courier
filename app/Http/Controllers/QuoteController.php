@@ -51,7 +51,7 @@ class QuoteController extends Controller
 
         return response()->json([
             'success' => true,
-            'tenant_id' => $validated['tenant_id'],
+            'tenant_id' => null, //$validated['tenant_id'],
             'category_id' => $validated['category_id'],
             'origin_id' => $validated['origin_id'] ?? null,
             'destination_id' => $validated['destination_id'] ?? null,
