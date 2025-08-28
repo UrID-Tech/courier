@@ -32,7 +32,7 @@ class QuoteController extends Controller
         ]);
 
         $price = $this->calculator->estimate(
-            tenantId: $validated['tenant_id'],
+            tenantId: null, //fix for multi tenancy
             categoryId: $validated['category_id'],
             originId: $validated['origin_id'] ?? null,
             destinationId: $validated['destination_id'] ?? null,

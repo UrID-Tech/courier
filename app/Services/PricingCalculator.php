@@ -30,7 +30,7 @@ class PricingCalculator
         float $width,
         float $height
     ): ?float {
-        if (!$tenantId) {
+        if (empty($tenantId)) {
             $tenantId = Tenant::first()->getKey();
         }
         // Get all matching rules for tenant + category
