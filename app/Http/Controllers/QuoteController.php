@@ -18,7 +18,7 @@ class QuoteController extends Controller
     /**
      * Calculate shipment price estimate for guest users.
      */
-    public function calculate(Request $request): JsonResponse
+    public function calculate(Request $request)
     {
         $validated = $request->validate([
             'tenant_id' => 'nullable|uuid|exists:tenants,id',
@@ -49,19 +49,21 @@ class QuoteController extends Controller
             ], 404);
         }
 
-        return response()->json([
-            'success' => true,
-            'tenant_id' => null, //$validated['tenant_id'],
-            'category_id' => $validated['category_id'],
-            'origin_id' => $validated['origin_id'] ?? null,
-            'destination_id' => $validated['destination_id'] ?? null,
-            'weight' => $validated['weight'],
-            'dimensions' => [
-                'length' => $validated['length'],
-                'width' => $validated['width'],
-                'height' => $validated['height'],
-            ],
-            'estimated_price' => $price,
-        ]);
+        // return response()->json([
+        //     'success' => true,
+        //     'tenant_id' => null, //$validated['tenant_id'],
+        //     'category_id' => $validated['category_id'],
+        //     'origin_id' => $validated['origin_id'] ?? null,
+        //     'destination_id' => $validated['destination_id'] ?? null,
+        //     'weight' => $validated['weight'],
+        //     'dimensions' => [
+        //         'length' => $validated['length'],
+        //         'width' => $validated['width'],
+        //         'height' => $validated['height'],
+        //     ],
+        //     'estimated_price' => $price,
+        // ]);
+
+        return redirect()->route('home')->with('quote', $price);
     }
 }
