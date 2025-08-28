@@ -72,7 +72,7 @@
         @if(session('quote'))
             <div class="mt-6 text-center">
                 <h2 class="text-xl font-semibold text-green-600">
-                    Estimated Price: {{ number_format(session('quote'), 2) }} {{ config('app.currency', 'USD') }}
+                    Estimated Price: {{ number_format(session('quote'), 2) }} {{ config('app.currency', 'RWF') }}
                 </h2>
             </div>
         @endif
