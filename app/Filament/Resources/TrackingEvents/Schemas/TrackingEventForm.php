@@ -16,7 +16,7 @@ class TrackingEventForm
                 Select::make('order')
                     ->relationship('order', 'tracking_number')
                     ->required(),
-                Select::make('location')
+                Select::make('location_id')
                     ->relationship()
                     ->default(null),
                 // TextInput::make('user_id')

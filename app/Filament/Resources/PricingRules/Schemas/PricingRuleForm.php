@@ -12,13 +12,13 @@ class PricingRuleForm
     {
         return $schema
             ->components([
-                Select::make('category')
+                Select::make('category_id')
                     ->relationship('category', 'name')
                     ->required(),
-                Select::make('origin')
+                Select::make('origin_location_id')
                     ->relationship('origin', 'name')
                     ->default(null),
-                Select::make('destination')
+                Select::make('destination_location_id')
                     ->relationship('destination', 'name')
                     ->default(null),
                 TextInput::make('base_price')

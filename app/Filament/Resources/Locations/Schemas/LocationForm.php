@@ -14,7 +14,7 @@ class LocationForm
             ->components([
                 TextInput::make('name')
                     ->required(),
-                Select::make('parent')
+                Select::make('parent_id')
                     ->relationship('parent', 'name')
                     ->default(null),
             ]);

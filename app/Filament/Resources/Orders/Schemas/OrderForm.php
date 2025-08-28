@@ -13,16 +13,16 @@ class OrderForm
     {
         return $schema
             ->components([
-                Select::make('customer')
+                Select::make('custome_id')
                     ->relationship('customer', 'name')
                     ->required(),
-                Select::make('category')
+                Select::make('category_id')
                     ->relationship('category', 'name')
                     ->required(),
-                Select::make('origin')
+                Select::make('origin_location_id')
                     ->relationship('origin', 'name')
                     ->required(),
-                Select::make('destination')
+                Select::make('destination_location_id')
                     ->relationship('destination', 'name')
                     ->required(),
                 TextInput::make('weight')
