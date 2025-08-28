@@ -69,12 +69,12 @@
             </div>
         </form>
 
-        @isset($quote)
+        @if(session('quote'))
             <div class="mt-6 text-center">
                 <h2 class="text-xl font-semibold text-green-600">
-                    Estimated Price: {{ number_format($quote, 2) }} {{ config('app.currency', 'USD') }}
+                    Estimated Price: {{ number_format(session('quote'), 2) }} {{ config('app.currency', 'USD') }}
                 </h2>
             </div>
-        @endisset
+        @endif
     </div>
 @endsection
