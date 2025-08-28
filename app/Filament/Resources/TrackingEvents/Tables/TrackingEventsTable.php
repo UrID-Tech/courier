@@ -16,15 +16,12 @@ class TrackingEventsTable
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->label('ID')
+                    ->label('ID'),
+                TextColumn::make('order.tracking_number')
                     ->searchable(),
-                TextColumn::make('tenant_id')
+                TextColumn::make('location.name')
                     ->searchable(),
-                TextColumn::make('order_id')
-                    ->searchable(),
-                TextColumn::make('location_id')
-                    ->searchable(),
-                TextColumn::make('user_id')
+                TextColumn::make('user.name')
                     ->searchable(),
                 TextColumn::make('status')
                     ->searchable(),

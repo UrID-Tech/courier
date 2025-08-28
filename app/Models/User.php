@@ -4,12 +4,15 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Enums\UserType;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasUuids;
@@ -58,5 +61,19 @@ class User extends Authenticatable
     public function customer()
     {
         return $this->hasOne(Customer::class);
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        // match different panels to different user types/roles
+        if ($panel->getId() === 'admin') {
+            return $this->user_type === UserType::BUSINESS->value;
+        } else if ($panel->getId() === 'customer') {
+            return $this->user_type === UserType::CUSTOMER->value;
+        } else if ($panel->getId() === 'superadmin') {
+            return $this->user_type === UserType::SUPERADMIN->value;
+        } else {
+            return false;
+        }
     }
 }

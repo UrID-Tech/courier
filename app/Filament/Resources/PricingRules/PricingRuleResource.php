@@ -11,6 +11,7 @@ use App\Filament\Resources\PricingRules\Schemas\PricingRuleInfolist;
 use App\Filament\Resources\PricingRules\Tables\PricingRulesTable;
 use App\Models\PricingRule;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -21,6 +22,8 @@ class PricingRuleResource extends Resource
     protected static ?string $model = PricingRule::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static string | UnitEnum | null $navigationGroup = 'Settings';
 
     protected static ?string $recordTitleAttribute = 'name';
 

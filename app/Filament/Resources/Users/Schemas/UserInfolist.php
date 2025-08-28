@@ -13,13 +13,9 @@ class UserInfolist
             ->components([
                 TextEntry::make('id')
                     ->label('ID'),
-                TextEntry::make('tenant_id'),
                 TextEntry::make('name'),
                 TextEntry::make('email')
                     ->label('Email address'),
-                TextEntry::make('email_verified_at')
-                    ->dateTime(),
-                TextEntry::make('user_type'),
                 TextEntry::make('created_at')
                     ->dateTime(),
                 TextEntry::make('updated_at')

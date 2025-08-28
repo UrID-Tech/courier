@@ -12,21 +12,17 @@ class UserForm
     {
         return $schema
             ->components([
-                TextInput::make('tenant_id')
-                    ->default(null),
                 TextInput::make('name')
                     ->required(),
                 TextInput::make('email')
                     ->label('Email address')
                     ->email()
                     ->required(),
-                DateTimePicker::make('email_verified_at'),
+                //DateTimePicker::make('email_verified_at'),
                 TextInput::make('password')
                     ->password()
                     ->required(),
-                TextInput::make('user_type')
-                    ->required()
-                    ->default('customer'),
+
             ]);
     }
 }

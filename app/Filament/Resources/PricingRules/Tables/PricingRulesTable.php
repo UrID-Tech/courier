@@ -16,15 +16,12 @@ class PricingRulesTable
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->label('ID')
+                    ->label('ID'),
+                TextColumn::make('category.name')
                     ->searchable(),
-                TextColumn::make('tenant_id')
+                TextColumn::make('origin.name')
                     ->searchable(),
-                TextColumn::make('category_id')
-                    ->searchable(),
-                TextColumn::make('origin_location_id')
-                    ->searchable(),
-                TextColumn::make('destination_location_id')
+                TextColumn::make('destination.name')
                     ->searchable(),
                 TextColumn::make('base_price')
                     ->numeric()

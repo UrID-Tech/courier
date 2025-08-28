@@ -28,6 +28,7 @@ return new class extends Migration
             $table->decimal('max_width', 8, 2)->nullable();
             $table->decimal('min_height', 8, 2)->nullable();
             $table->decimal('max_height', 8, 2)->nullable();
+            $table->boolean('is_reversible')->default(true);
             $table->timestamps();
         });
     }

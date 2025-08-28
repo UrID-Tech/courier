@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Locations\Schemas;
 
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -11,11 +12,10 @@ class LocationForm
     {
         return $schema
             ->components([
-                TextInput::make('tenant_id')
-                    ->required(),
                 TextInput::make('name')
                     ->required(),
-                TextInput::make('parent_id')
+                Select::make('parent')
+                    ->relationship('parent', 'name')
                     ->default(null),
             ]);
     }

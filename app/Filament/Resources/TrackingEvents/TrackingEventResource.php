@@ -11,6 +11,7 @@ use App\Filament\Resources\TrackingEvents\Schemas\TrackingEventInfolist;
 use App\Filament\Resources\TrackingEvents\Tables\TrackingEventsTable;
 use App\Models\TrackingEvent;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -21,6 +22,8 @@ class TrackingEventResource extends Resource
     protected static ?string $model = TrackingEvent::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static string | UnitEnum | null $navigationGroup = 'Operations';
 
     public static function form(Schema $schema): Schema
     {

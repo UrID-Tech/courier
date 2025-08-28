@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\BelongsToTenant;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, BelongsToTenant;
 
     protected $fillable = [
         'tenant_id',
@@ -22,7 +23,13 @@ class Order extends Model
         'width',
         'height',
         'price',
-        'status'
+        'status',
+        'receiver_name',
+        'receiver_email',
+        'receiver_phone',
+        'receiver_address',
+        'notes',
+        'requires_delivery_confirmation'
     ];
 
     public function tenant()
@@ -58,5 +65,14 @@ class Order extends Model
     public function invoice()
     {
         return $this->hasOne(Invoice::class);
+    }
+
+    protected static function booted()
+    {
+        static::creating(function ($order) {
+            if (empty($order->tracking_number)) {
+                $order->tracking_number = \App\Helpers\Utils::generateTrackingNumber();
+            }
+        });
     }
 }

@@ -13,10 +13,9 @@ class PricingRuleInfolist
             ->components([
                 TextEntry::make('id')
                     ->label('ID'),
-                TextEntry::make('tenant_id'),
-                TextEntry::make('category_id'),
-                TextEntry::make('origin_location_id'),
-                TextEntry::make('destination_location_id'),
+                TextEntry::make('category.name'),
+                TextEntry::make('origin.name'),
+                TextEntry::make('destination.name'),
                 TextEntry::make('base_price')
                     ->numeric(),
                 TextEntry::make('price_per_kg')

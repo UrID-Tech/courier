@@ -13,10 +13,9 @@ class TrackingEventInfolist
             ->components([
                 TextEntry::make('id')
                     ->label('ID'),
-                TextEntry::make('tenant_id'),
-                TextEntry::make('order_id'),
-                TextEntry::make('location_id'),
-                TextEntry::make('user_id'),
+                TextEntry::make('order.tracking_number'),
+                TextEntry::make('location.name'),
+                TextEntry::make('user.name'),
                 TextEntry::make('status'),
                 TextEntry::make('created_at')
                     ->dateTime(),

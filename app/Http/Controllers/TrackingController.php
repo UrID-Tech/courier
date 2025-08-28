@@ -8,6 +8,10 @@ use Illuminate\Http\JsonResponse;
 
 class TrackingController extends Controller
 {
+    public function showForm()
+    {
+        return view('track');
+    }
     /**
      * Track a shipment by tracking number (guest accessible).
      */

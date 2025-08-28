@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\TrackingEvents\Schemas;
 
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
@@ -12,14 +13,14 @@ class TrackingEventForm
     {
         return $schema
             ->components([
-                TextInput::make('tenant_id')
+                Select::make('order')
+                    ->relationship('order', 'tracking_number')
                     ->required(),
-                TextInput::make('order_id')
-                    ->required(),
-                TextInput::make('location_id')
+                Select::make('location')
+                    ->relationship()
                     ->default(null),
-                TextInput::make('user_id')
-                    ->default(null),
+                // TextInput::make('user_id')
+                //     ->default(null),
                 TextInput::make('status')
                     ->required(),
                 Textarea::make('remarks')

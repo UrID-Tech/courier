@@ -13,9 +13,9 @@ class LocationInfolist
             ->components([
                 TextEntry::make('id')
                     ->label('ID'),
-                TextEntry::make('tenant_id'),
                 TextEntry::make('name'),
-                TextEntry::make('parent_id'),
+                TextEntry::make('parent.name')
+                    ->label('Parent location'),
                 TextEntry::make('created_at')
                     ->dateTime(),
                 TextEntry::make('updated_at')

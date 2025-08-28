@@ -25,6 +25,12 @@ return new class extends Migration
             $table->decimal('height', 8, 2)->nullable();
             $table->decimal('price', 10, 2);
             $table->string('status')->default('pending');
+            $table->string('receiver_name');
+            $table->string('receiver_email')->nullable();
+            $table->string('receiver_phone');
+            $table->text('receiver_address')->nullable();
+            $table->text('notes')->nullable();
+            $table->boolean('requires_delivery_confirmation')->default(false);
             $table->timestamps();
         });
     }

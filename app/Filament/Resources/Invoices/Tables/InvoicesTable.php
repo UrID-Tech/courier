@@ -16,10 +16,7 @@ class InvoicesTable
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
-                TextColumn::make('tenant_id')
-                    ->searchable(),
+                    ->label('ID'),
                 TextColumn::make('order_id')
                     ->searchable(),
                 TextColumn::make('amount')

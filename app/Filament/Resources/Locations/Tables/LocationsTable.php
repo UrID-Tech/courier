@@ -16,13 +16,10 @@ class LocationsTable
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
-                TextColumn::make('tenant_id')
-                    ->searchable(),
+                    ->label('ID'),
                 TextColumn::make('name')
                     ->searchable(),
-                TextColumn::make('parent_id')
+                TextColumn::make('parent.name')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()

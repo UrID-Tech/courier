@@ -13,12 +13,14 @@ class OrderInfolist
             ->components([
                 TextEntry::make('id')
                     ->label('ID'),
-                TextEntry::make('tenant_id'),
-                TextEntry::make('customer_id'),
+                TextEntry::make('customer.name'),
                 TextEntry::make('tracking_number'),
-                TextEntry::make('category_id'),
-                TextEntry::make('origin_location_id'),
-                TextEntry::make('destination_location_id'),
+                TextEntry::make('category.name'),
+                TextEntry::make('origin.name'),
+                TextEntry::make('destination.name'),
+                TextEntry::make('receiver_name'),
+                TextEntry::make('receiver_email'),
+                TextEntry::make('receiver_phone'),
                 TextEntry::make('weight')
                     ->numeric(),
                 TextEntry::make('length')

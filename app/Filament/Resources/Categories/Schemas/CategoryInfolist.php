@@ -13,7 +13,6 @@ class CategoryInfolist
             ->components([
                 TextEntry::make('id')
                     ->label('ID'),
-                TextEntry::make('tenant_id'),
                 TextEntry::make('name'),
                 TextEntry::make('created_at')
                     ->dateTime(),

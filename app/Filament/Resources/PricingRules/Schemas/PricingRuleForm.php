@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PricingRules\Schemas;
 
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -11,13 +12,14 @@ class PricingRuleForm
     {
         return $schema
             ->components([
-                TextInput::make('tenant_id')
+                Select::make('category')
+                    ->relationship('category', 'name')
                     ->required(),
-                TextInput::make('category_id')
-                    ->required(),
-                TextInput::make('origin_location_id')
+                Select::make('origin')
+                    ->relationship('origin', 'name')
                     ->default(null),
-                TextInput::make('destination_location_id')
+                Select::make('destination')
+                    ->relationship('destination', 'name')
                     ->default(null),
                 TextInput::make('base_price')
                     ->required()

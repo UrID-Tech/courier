@@ -16,20 +16,20 @@ class OrdersTable
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
-                TextColumn::make('tenant_id')
-                    ->searchable(),
-                TextColumn::make('customer_id')
+                    ->label('ID'),
+                TextColumn::make('customer.name')
                     ->searchable(),
                 TextColumn::make('tracking_number')
                     ->searchable(),
-                TextColumn::make('category_id')
+                TextColumn::make('category.name')
                     ->searchable(),
-                TextColumn::make('origin_location_id')
+                TextColumn::make('origin.name')
                     ->searchable(),
-                TextColumn::make('destination_location_id')
+                TextColumn::make('destination.name')
                     ->searchable(),
+                TextColumn::make('receiver_name'),
+                TextColumn::make('receiver_email'),
+                TextColumn::make('receiver_phone'),
                 TextColumn::make('weight')
                     ->numeric()
                     ->sortable(),

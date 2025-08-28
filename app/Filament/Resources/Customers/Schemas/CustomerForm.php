@@ -12,16 +12,13 @@ class CustomerForm
     {
         return $schema
             ->components([
-                TextInput::make('tenant_id')
-                    ->required(),
-                TextInput::make('user_id')
-                    ->default(null),
                 TextInput::make('name')
                     ->required(),
                 TextInput::make('email')
                     ->label('Email address')
                     ->email()
                     ->default(null),
+                TextInput::make('identification_number'),
                 TextInput::make('phone')
                     ->tel()
                     ->default(null),

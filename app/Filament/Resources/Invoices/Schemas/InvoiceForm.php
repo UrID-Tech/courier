@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Invoices\Schemas;
 
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -11,9 +12,8 @@ class InvoiceForm
     {
         return $schema
             ->components([
-                TextInput::make('tenant_id')
-                    ->required(),
-                TextInput::make('order_id')
+                Select::make('order')
+                    ->relationship('order', 'id')
                     ->required(),
                 TextInput::make('amount')
                     ->required()
