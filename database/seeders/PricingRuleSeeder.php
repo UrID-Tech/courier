@@ -51,7 +51,7 @@ class PricingRuleSeeder extends Seeder
                         'origin_location_id'      => $origin->id,
                         'destination_location_id' => $destination->id,
                         'min_weight' => 1,
-                        'max_weight' => 1,
+                        'max_weight' => 30,
                         'min_width'               => 1,
                         'max_width'               => 30,
                         'min_length'              => 1,
