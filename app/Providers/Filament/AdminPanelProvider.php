@@ -2,6 +2,9 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Widgets\DashboardStats;
+use App\Filament\Widgets\OrdersByStatusChart;
+use App\Filament\Widgets\OrdersTrendChat;
 use App\Filament\Widgets\TrackingSearchWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -39,7 +42,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
+                DashboardStats::class,
                 TrackingSearchWidget::class,
+                OrdersByStatusChart::class,
+                OrdersTrendChat::class,
             ])
             ->middleware([
                 EncryptCookies::class,

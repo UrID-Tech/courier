@@ -31,6 +31,7 @@ return new class extends Migration
             $table->text('receiver_address')->nullable();
             $table->text('notes')->nullable();
             $table->boolean('requires_delivery_confirmation')->default(false);
+            $table->string('payment_status')->default('pending');
             $table->timestamps();
         });
     }

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\OrderStatus;
+use App\Enums\PaymentStatus;
 use App\Traits\BelongsToTenant;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,7 +31,13 @@ class Order extends Model
         'receiver_phone',
         'receiver_address',
         'notes',
-        'requires_delivery_confirmation'
+        'requires_delivery_confirmation',
+        'payment_status'
+    ];
+
+    protected $casts = [
+        'status' => OrderStatus::class,
+        'payment_status' => PaymentStatus::class,
     ];
 
     public function tenant()
@@ -65,6 +73,11 @@ class Order extends Model
     public function invoice()
     {
         return $this->hasOne(Invoice::class);
+    }
+
+    public function paymentTransactions()
+    {
+        return $this->hasMany(PaymentTransaction::class);
     }
 
     protected static function booted()

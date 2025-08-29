@@ -19,7 +19,13 @@ return new class extends Migration
             $table->foreignUuid('user_id')->nullable()->constrained('users')->cascadeOnDelete();
             $table->string('status');
             $table->text('remarks')->nullable();
+            $table->dateTime('delivered_at')->nullable();
+            $table->string('delivered_by')->nullable();
+            $table->string('received_by')->nullable();
+            $table->string('received_by_phone_number')->nullable();
+            $table->string('otp')->nullable();
             $table->timestamps();
+            $table->unique(['tenant_id', 'order_id', 'location_id'], 'restrict_same_location');
         });
     }
 

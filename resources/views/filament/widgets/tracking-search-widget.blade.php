@@ -1,5 +1,6 @@
 <x-filament::widget>
     <x-filament::card>
+        <h5>Quick Order Track</h5><br/>
         <form wire:submit.prevent="submit" class="space-y-4">
             <x-filament::input.wrapper>
                 <x-filament::input
@@ -7,7 +8,7 @@
                     type="text"
                     placeholder="Enter tracking number"
                 />
-            </x-filament::input.wrapper>
+            </x-filament::input.wrapper><br />
 
             <x-filament::button type="submit" color="primary">
                 Search

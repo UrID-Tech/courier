@@ -43,10 +43,9 @@ class QuoteController extends Controller
         );
 
         if (is_null($price)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'No matching pricing rule found for this shipment.',
-            ], 404);
+            return redirect()->back()->withErrors([
+                'shipment' => 'Unable to provide quote with provided details..check inputs',
+            ])->withInput();
         }
 
         // return response()->json([

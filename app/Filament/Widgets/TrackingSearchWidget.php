@@ -11,6 +11,8 @@ class TrackingSearchWidget extends Widget
 {
     protected string $view = 'filament.widgets.tracking-search-widget';
 
+    protected string $heading = '📦 Track Order';
+
     public ?string $trackingNumber = null;
 
     public array $result = [];

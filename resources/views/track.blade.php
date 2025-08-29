@@ -24,16 +24,19 @@
             </button>
         </form>
 
-        @isset($order)
+        @if(session('order'))
+        @php
+            $order = session('order');
+        @endphp
             <div class="border-t pt-4">
                 <h2 class="text-xl font-semibold mb-2">Shipment Details</h2>
                 <p><span class="font-medium">Tracking Number:</span> {{ $order->tracking_number }}</p>
-                <p><span class="font-medium">Status:</span> {{ ucfirst($order->status) }}</p>
-                <p><span class="font-medium">From:</span> {{ $order->fromLocation->name ?? '-' }}</p>
-                <p><span class="font-medium">To:</span> {{ $order->toLocation->name ?? '-' }}</p>
+                <p><span class="font-medium">Status:</span> {{ ucfirst($order->status->value) }}</p>
+                <p><span class="font-medium">From:</span> {{ $order->origin->name ?? '-' }}</p>
+                <p><span class="font-medium">To:</span> {{ $order->destination->name ?? '-' }}</p>
                 <p><span class="font-medium">Category:</span> {{ $order->category->name ?? '-' }}</p>
                 <p><span class="font-medium">Price:</span> ${{ number_format($order->price, 2) }}</p>
             </div>
-        @endisset
+        @endif
     </div>
 @endsection
