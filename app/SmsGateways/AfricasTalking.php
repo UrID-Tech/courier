@@ -9,7 +9,7 @@ use App\Settings\AfricasTalkingSettings;
 class AfricasTalking implements SendsTextMessages
 {
 
-    public function send($receiver, $message_body, $sender = 8228)
+    public function send($receiver, $message_body, $sender = 'PalmKash', $model = null)
     {
 
 
