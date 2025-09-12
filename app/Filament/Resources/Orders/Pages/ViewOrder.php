@@ -19,7 +19,7 @@ class ViewOrder extends ViewRecord
                 ->label('Print Label')
                 ->icon('heroicon-o-printer')
                 ->color('success')
-                ->url(fn() => route('filament.pages.shipping-label', ['ids' => $this->record->id]))
+                //->url(fn() => route('filament.pages.shipping-label', ['ids' => $this->record->id]))
                 ->openUrlInNewTab(),
         ];
     }
