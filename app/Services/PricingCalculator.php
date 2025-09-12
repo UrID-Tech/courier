@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\PricingStrategy;
 use App\Models\PricingRule;
 use App\Models\Tenant;
 use App\Models\Category;
@@ -54,23 +55,23 @@ class PricingCalculator
         $price = $rule->base_price ?? 0;
 
         switch ($category->pricing_strategy) {
-            case 'weight':
+            case PricingStrategy::Weight:
                 $price += $weight * ($rule->price_per_kg ?? 0);
                 break;
 
-            case 'dimensions':
+            case PricingStrategy::Dimensions:
                 $volume = $length * $width * $height;
                 $price += $volume * ($rule->price_per_dimension ?? 0);
                 break;
 
-            case 'value':
+            case PricingStrategy::Value:
                 if (is_null($shipmentValue)) {
                     throw new \InvalidArgumentException("Shipment value is required for this category.");
                 }
                 $price += ($shipmentValue * ($rule->value_percentage ?? 0)) / 100;
                 break;
 
-            case 'all':
+            case PricingStrategy::All:
                 $price += $weight * ($rule->price_per_kg ?? 0);
 
                 $volume = $length * $width * $height;
@@ -82,7 +83,7 @@ class PricingCalculator
                 $price += ($shipmentValue * ($rule->value_percentage ?? 0)) / 100;
                 break;
 
-            case 'weight+value':
+            case PricingStrategy::WeightAndValue:
                 $price += $weight * ($rule->price_per_kg ?? 0);
 
                 if (is_null($shipmentValue)) {

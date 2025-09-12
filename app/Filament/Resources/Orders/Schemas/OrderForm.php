@@ -89,7 +89,7 @@ class OrderForm
                     ->default(null)
                     ->requiredIf('category', function (Get $get) {
                         $category = $get('category_id') ? \App\Models\Category::find($get('category_id')) : null;
-                        return $category && Str::contains($category->pricing_strategy, 'value');
+                        return $category && Str::contains($category->pricing_strategy->value, 'value');
                     }),
 
                 TextInput::make('price')
