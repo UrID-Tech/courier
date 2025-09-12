@@ -35,5 +35,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RwandaLocationsSeeder::class);
         $this->call(CategoriesSeeder::class);
         $this->call(PricingRuleSeeder::class);
+        $this->call(SettingsSeeder::class);
     }
 }

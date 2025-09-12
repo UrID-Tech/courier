@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Orders\Pages;
 
 use App\Filament\Resources\Orders\OrderResource;
+use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
 
@@ -14,6 +15,12 @@ class ViewOrder extends ViewRecord
     {
         return [
             EditAction::make(),
+            Action::make('print_label')
+                ->label('Print Label')
+                ->icon('heroicon-o-printer')
+                ->color('success')
+                ->url(fn() => route('filament.pages.shipping-label', ['ids' => $this->record->id]))
+                ->openUrlInNewTab(),
         ];
     }
 }

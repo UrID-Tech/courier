@@ -15,8 +15,8 @@ class PricingRulesTable
     {
         return $table
             ->columns([
-                TextColumn::make('id')
-                    ->label('ID'),
+                // TextColumn::make('id')
+                //     ->label('ID'),
                 TextColumn::make('category.name')
                     ->searchable(),
                 TextColumn::make('origin.name')

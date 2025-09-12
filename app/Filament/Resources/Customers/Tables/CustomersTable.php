@@ -15,8 +15,8 @@ class CustomersTable
     {
         return $table
             ->columns([
-                TextColumn::make('id')
-                    ->label('ID'),
+                // TextColumn::make('id')
+                //     ->label('ID'),
                 TextColumn::make('user_id')
                     ->searchable(),
                 TextColumn::make('name')

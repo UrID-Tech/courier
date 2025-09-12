@@ -6,6 +6,7 @@ use App\Enums\DeliveryStatus;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentMethod;
 use App\Enums\PaymentStatus;
+use App\Helpers\Sms;
 use App\Mail\OrderIsInTransit;
 use App\Models\Order;
 use App\Models\PaymentTransaction;
@@ -30,6 +31,11 @@ class OrderObserver
 
             if ($order->customer->email) {
                 Mail::to($order->customer->email)->queue(new OrderIsInTransit($order));
+                Sms::send(
+                    to: $order->customer->phone,
+                    message: "Your order with tracking number {$order->tracking_number} is now in transit.",
+                    model: $order
+                );
             }
         }
 

@@ -26,7 +26,9 @@ class PricingRule extends Model
         'min_width',
         'max_width',
         'min_height',
-        'max_height'
+        'max_height',
+        'is_reversible',
+        'value_percentage',
     ];
 
     public function tenant()

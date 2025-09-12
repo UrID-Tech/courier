@@ -32,7 +32,10 @@ class Order extends Model
         'receiver_address',
         'notes',
         'requires_delivery_confirmation',
-        'payment_status'
+        'payment_status',
+        'driver_id',
+        'vehicle_id',
+        'shipment_value',
     ];
 
     protected $casts = [
@@ -78,6 +81,16 @@ class Order extends Model
     public function paymentTransactions()
     {
         return $this->hasMany(PaymentTransaction::class);
+    }
+
+    public function driver()
+    {
+        return $this->belongsTo(Driver::class);
+    }
+
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class);
     }
 
     protected static function booted()

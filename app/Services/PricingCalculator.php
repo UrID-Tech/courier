@@ -4,12 +4,10 @@ namespace App\Services;
 
 use App\Models\PricingRule;
 use App\Models\Tenant;
+use App\Models\Category;
 
 class PricingCalculator
 {
-    /**
-     * Calculate estimated price for a shipment
-     */
     public function estimate(
         ?string $tenantId,
         string $categoryId,
@@ -18,67 +16,80 @@ class PricingCalculator
         float $weight,
         float $length,
         float $width,
-        float $height
+        float $height,
+        ?float $shipmentValue = null
     ): ?float {
         if (empty($tenantId)) {
-            $tenantId = Tenant::first()?->getKey();
+            $tenantId = Tenant::first()->getKey();
         }
 
-        if (! $tenantId || ! $originId || ! $destinationId) {
-            return null;
-        }
+        $category = Category::findOrFail($categoryId);
 
-        // Query rules in both directions if reversible
         $rules = PricingRule::where('tenant_id', $tenantId)
             ->where('category_id', $categoryId)
-            ->where(function ($q) use ($originId, $destinationId) {
-                $q->where(function ($q) use ($originId, $destinationId) {
-                    $q->where('origin_location_id', $originId)
-                        ->where('destination_location_id', $destinationId);
-                })
-                    ->orWhere(function ($q) use ($originId, $destinationId) {
-                        $q->where('origin_location_id', $destinationId)
-                            ->where('destination_location_id', $originId)
-                            ->where('is_reversible', true);
-                    });
-            })
+            ->when($originId, fn($q) => $q->where('origin_location_id', $originId))
+            ->when($destinationId, fn($q) => $q->where('destination_location_id', $destinationId))
             ->get();
 
         if ($rules->isEmpty()) {
-            return null; // no matching rules
+            return null;
         }
 
-        // Filter rules by weight/dimension constraints
-        $validRules = $rules->filter(function ($rule) use ($weight, $length, $width, $height) {
-            return ($rule->min_weight === null || $weight >= $rule->min_weight) &&
+        $validRules = $rules->filter(
+            fn($rule) => ($rule->min_weight === null || $weight >= $rule->min_weight) &&
                 ($rule->max_weight === null || $weight <= $rule->max_weight) &&
                 ($rule->min_length === null || $length >= $rule->min_length) &&
                 ($rule->max_length === null || $length <= $rule->max_length) &&
                 ($rule->min_width === null || $width >= $rule->min_width) &&
                 ($rule->max_width === null || $width <= $rule->max_width) &&
                 ($rule->min_height === null || $height >= $rule->min_height) &&
-                ($rule->max_height === null || $height <= $rule->max_height);
-        });
+                ($rule->max_height === null || $height <= $rule->max_height)
+        );
 
         if ($validRules->isEmpty()) {
             return null;
         }
 
-        // Use the first valid rule for now
         $rule = $validRules->first();
+        $price = $rule->base_price ?? 0;
 
-        // Start with base price
-        $price = $rule->base_price;
+        switch ($category->pricing_strategy) {
+            case 'weight':
+                $price += $weight * ($rule->price_per_kg ?? 0);
+                break;
 
-        // Add weight-based pricing
-        if ($rule->price_per_kg) {
-            $price += $weight * $rule->price_per_kg;
-        }
+            case 'dimensions':
+                $volume = $length * $width * $height;
+                $price += $volume * ($rule->price_per_dimension ?? 0);
+                break;
 
-        // Add dimension-based pricing (volume pricing)
-        if ($rule->price_per_dimension) {
-            $volume = $length * $width * $height;
-            $price += $volume * $rule->price_per_dimension;
+            case 'value':
+                if (is_null($shipmentValue)) {
+                    throw new \InvalidArgumentException("Shipment value is required for this category.");
+                }
+                $price += ($shipmentValue * ($rule->value_percentage ?? 0)) / 100;
+                break;
+
+            case 'all':
+                $price += $weight * ($rule->price_per_kg ?? 0);
+
+                $volume = $length * $width * $height;
+                $price += $volume * ($rule->price_per_dimension ?? 0);
+
+                if (is_null($shipmentValue)) {
+                    throw new \InvalidArgumentException("Shipment value is required for this category.");
+                }
+                $price += ($shipmentValue * ($rule->value_percentage ?? 0)) / 100;
+                break;
+
+            case 'weight+value':
+                $price += $weight * ($rule->price_per_kg ?? 0);
+
+                if (is_null($shipmentValue)) {
+                    throw new \InvalidArgumentException("Shipment value is required for this category.");
+                }
+                $price += ($shipmentValue * ($rule->value_percentage ?? 0)) / 100;
+                break;
         }
 
         return round($price, 2);

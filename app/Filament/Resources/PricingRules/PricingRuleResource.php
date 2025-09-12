@@ -21,7 +21,7 @@ class PricingRuleResource extends Resource
 {
     protected static ?string $model = PricingRule::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::CurrencyDollar;
 
     protected static string | UnitEnum | null $navigationGroup = 'Settings';
 

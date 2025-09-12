@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('tenant_id')->constrained('tenants')->cascadeOnDelete();
             $table->string('name');
+            $table->string('pricing_strategy')->default('weight');
             $table->text('description')->nullable();
             $table->timestamps();
         });

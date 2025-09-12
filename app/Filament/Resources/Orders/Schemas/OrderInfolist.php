@@ -29,9 +29,17 @@ class OrderInfolist
                     ->numeric(),
                 TextEntry::make('height')
                     ->numeric(),
+                TextEntry::make('shipment_value')
+                    ->label('Shipment Value')
+                    ->money(),
                 TextEntry::make('price')
                     ->money(),
                 TextEntry::make('status'),
+                TextEntry::make('payment_status'),
+                TextEntry::make('driver.name')
+                    ->label('Driver'),
+                TextEntry::make('vehicle.number_plate')
+                    ->label('Vehicle'),
                 TextEntry::make('created_at')
                     ->dateTime(),
                 TextEntry::make('updated_at')

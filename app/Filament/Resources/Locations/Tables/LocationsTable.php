@@ -15,8 +15,8 @@ class LocationsTable
     {
         return $table
             ->columns([
-                TextColumn::make('id')
-                    ->label('ID'),
+                // TextColumn::make('id')
+                //     ->label('ID'),
                 TextColumn::make('name')
                     ->searchable(),
                 TextColumn::make('parent.name')

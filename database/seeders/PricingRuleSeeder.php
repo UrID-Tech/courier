@@ -45,13 +45,13 @@ class PricingRuleSeeder extends Seeder
                     PricingRule::create([
                         'tenant_id'               => $tenant->id,
                         'category_id'             => $category->id,
-                        'base_price'              => 100.0,
-                        'price_per_kg'            => 5.0,
-                        'price_per_dimension'     => 5.0,
+                        'base_price'              => 0,
+                        'price_per_kg'            => 1000,
+                        'price_per_dimension'     => 0,
                         'origin_location_id'      => $origin->id,
                         'destination_location_id' => $destination->id,
                         'min_weight' => 1,
-                        'max_weight' => 30,
+                        'max_weight' => 5,
                         'min_width'               => 1,
                         'max_width'               => 30,
                         'min_length'              => 1,
@@ -59,6 +59,7 @@ class PricingRuleSeeder extends Seeder
                         'min_height'              => 1,
                         'max_height'              => 30,
                         'is_reversible'           => true, // reverse handled by calculator
+                        'value_percentage'  => 0,
                     ]);
                 }
             }

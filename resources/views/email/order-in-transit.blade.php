@@ -8,6 +8,7 @@ The shipment you have ordered is now in Transit.
 
 
 
+<img src="data:image/png;base64,{{ DNS2D::getBarcodePNG(route('track.order', $order->tracking_number), 'QRCODE') }}" alt="QR Code">
 
 
 @component('mail::button', ['url' => config('app.url').'//tracking/track'])

@@ -31,6 +31,11 @@ class PricingRuleForm
                 TextInput::make('price_per_dimension')
                     ->numeric()
                     ->default(null),
+                TextInput::make('value_percentage')
+                    ->numeric()
+                    ->maxValue(100)
+                    ->minValue(0)
+                    ->default(null),
                 TextInput::make('min_weight')
                     ->numeric()
                     ->default(null),

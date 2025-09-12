@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\PricingStrategy;
 use App\Models\Category;
 use App\Models\Tenant;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -19,10 +20,11 @@ class CategoriesSeeder extends Seeder
         $parcel = Category::firstOrCreate(
             [
                 'tenant_id' => $tenant->getKey(),
-                'name' => 'Parcel'
+                'name' => 'Cargo'
             ],
             [
-                'description' => 'Envelope or book size packages'
+                'description' => 'light cargo',
+                'pricing_strategy' => PricingStrategy::Weight
             ]
         );
     }

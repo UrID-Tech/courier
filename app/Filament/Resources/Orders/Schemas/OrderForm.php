@@ -13,6 +13,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class OrderForm
 {
@@ -81,6 +82,16 @@ class OrderForm
                     ->live()
                     ->afterStateUpdated(fn(Get $get, Set $set) => self::recalculatePrice($set, $get)),
 
+                TextInput::make('shipment_value')
+                    ->label('Shipment Value')
+                    ->live()
+                    ->numeric()
+                    ->default(null)
+                    ->requiredIf('category', function (Get $get) {
+                        $category = $get('category_id') ? \App\Models\Category::find($get('category_id')) : null;
+                        return $category && Str::contains($category->pricing_strategy, 'value');
+                    }),
+
                 TextInput::make('price')
                     ->required()
                     ->numeric()
@@ -118,6 +129,20 @@ class OrderForm
 
                 Toggle::make('requires_delivery_confirmation')
                     ->default(false),
+                Select::make('driver_id')
+                    ->label('Assign Driver')
+                    ->relationship('driver', 'name')
+                    ->preload()
+                    ->searchable()
+                    ->default(null)
+                    ->nullable(),
+                Select::make('vehicle_id')
+                    ->label('Assign Vehicle')
+                    ->relationship('vehicle', 'number_plate')
+                    ->preload()
+                    ->searchable()
+                    ->default(null)
+                    ->nullable(),
             ]);
     }
 
@@ -133,6 +158,7 @@ class OrderForm
         $length   = $get('length') ?? 0;
         $width    = $get('width') ?? 0;
         $height   = $get('height') ?? 0;
+        $shipmentValue = $get('shipment_value') ?? null;
         $price = 0.0;
         if ($from && $to && $category) {
             $price = app(PricingCalculator::class)->estimate(
@@ -143,8 +169,8 @@ class OrderForm
                 weight: (float) $weight,
                 length: (float) $length,
                 width: (float) $width,
-                height: (float) $height
-
+                height: (float) $height,
+                shipmentValue: $shipmentValue
             );
 
             $set('price', $price);

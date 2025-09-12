@@ -7,6 +7,7 @@ use App\Enums\OrderStatus;
 use App\Mail\OrderIsDelivered;
 use App\Models\TrackingEvent;
 use Illuminate\Support\Facades\Mail;
+use App\Helpers\Sms;
 
 class TrackingEventObserver
 {
@@ -19,6 +20,11 @@ class TrackingEventObserver
             $trackingEvent->order->update(['status' => OrderStatus::Delivered]);
             if ($trackingEvent->order->customer->email) {
                 Mail::to($trackingEvent->order->customer->email)->queue(new OrderIsDelivered($trackingEvent->order));
+                Sms::send(
+                    to: $trackingEvent->order->customer->phone,
+                    message: "Your order with tracking number {$trackingEvent->order->tracking_number} is has been delivered.",
+                    model: $trackingEvent->order
+                );
             }
         }
     }

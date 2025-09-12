@@ -15,9 +15,12 @@ class CategoriesTable
     {
         return $table
             ->columns([
-                TextColumn::make('id')
-                    ->label('ID'),
+                // TextColumn::make('id')
+                //     ->label('ID'),
                 TextColumn::make('name')
+                    ->searchable(),
+                TextColumn::make('pricing_strategy')
+                    ->label('Pricing Strategy')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()

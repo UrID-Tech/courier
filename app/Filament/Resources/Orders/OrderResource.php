@@ -21,7 +21,7 @@ class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShoppingCart;
 
     protected static string | UnitEnum | null $navigationGroup = 'Operations';
 
@@ -54,6 +54,7 @@ class OrderResource extends Resource
             'create' => CreateOrder::route('/create'),
             'view' => ViewOrder::route('/{record}'),
             'edit' => EditOrder::route('/{record}/edit'),
+            'shipping-label' => Pages\ShippingLabel::route('{record}/shipping-label'),
         ];
     }
 }

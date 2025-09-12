@@ -32,6 +32,10 @@ return new class extends Migration
             $table->text('notes')->nullable();
             $table->boolean('requires_delivery_confirmation')->default(false);
             $table->string('payment_status')->default('pending');
+            $table->foreignUuid('driver_id')->nullable()->constrained('drivers')->nullOnDelete();
+            $table->foreignUuid('vehicle_id')->nullable()->constrained('vehicles')->nullOnDelete();
+            $table->decimal('shipment_value', 13, 2)->nullable();
+            //$table->index(['tenant_id', 'tracking_number']);
             $table->timestamps();
         });
     }
