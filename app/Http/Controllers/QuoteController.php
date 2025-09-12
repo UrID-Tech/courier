@@ -26,9 +26,9 @@ class QuoteController extends Controller
             'origin_id' => 'nullable|uuid|exists:locations,id',
             'destination_id' => 'nullable|uuid|exists:locations,id',
             'weight' => 'required|numeric|min:0.1',
-            'length' => 'required|numeric|min:0',
-            'width'  => 'required|numeric|min:0',
-            'height' => 'required|numeric|min:0',
+            'length' => 'nullable|numeric|min:0',
+            'width'  => 'nullable|numeric|min:0',
+            'height' => 'nullable|numeric|min:0',
         ]);
 
         $price = $this->calculator->estimate(
@@ -36,10 +36,11 @@ class QuoteController extends Controller
             categoryId: $validated['category_id'],
             originId: $validated['origin_id'] ?? null,
             destinationId: $validated['destination_id'] ?? null,
-            weight: $validated['weight'],
-            length: $validated['length'],
-            width: $validated['width'],
-            height: $validated['height']
+            weight: $validated['weight'] ?? 0,
+            length: $validated['length'] ?? 0,
+            width: $validated['width'] ?? 0,
+            height: $validated['height'] ?? 0,
+            shipmentValue: $validated['shipment_value'] ?? null,
         );
 
         if (is_null($price)) {

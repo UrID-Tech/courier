@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>@yield('title', 'Courier Urid')</title>
-    @vite('resources/css/app.css') {{-- Laravel Vite with Tailwind --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
 
